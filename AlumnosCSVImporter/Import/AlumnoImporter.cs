@@ -21,7 +21,7 @@ public class AlumnoImporter(AlumnoService Service)
         {
             count++;
             alumnos.Add(alumno);
-            if (count >= 1000)
+            if (count >= 20000)
             {
                 Service.CreateMultiple(alumnos);
                 alumnos.Clear();

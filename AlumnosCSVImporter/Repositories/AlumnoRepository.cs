@@ -53,7 +53,7 @@ public class AlumnoRepository(DatabaseContext context)
     public List<Alumno> CreateMultiple(List<Alumno> entities)
     {
         if (entities == null || entities.Count == 0)
-            return new List<Alumno>();
+            return [];
 
         var valuesList = new List<string>();
 
@@ -76,19 +76,11 @@ public class AlumnoRepository(DatabaseContext context)
         var sql = $@"
             INSERT INTO ""Alumnos"" (""Apellido"", ""Nombre"", ""NroDocumento"", ""TipoDocumento"", ""FechaNacimiento"", ""Sexo"", ""NroLegajo"", ""FechaIngreso"")
             VALUES
-            {string.Join(",\n", valuesList)}
-            RETURNING ""Id"";
+            {string.Join(",\n", valuesList)};
         ";
 
-        var result = _context.ExecuteQuery(sql);
+        _context.ExecuteQuery(sql);
 
-        if (result.Count != entities.Count)
-            throw new Exception("No se pudo crear todos los alumnos.");
-
-        for (int i = 0; i < entities.Count; i++)
-        {
-            entities[i].Id = Convert.ToInt32(result[i]["Id"]);
-        }
 
         return entities;
     }
