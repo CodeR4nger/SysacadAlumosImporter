@@ -11,6 +11,10 @@ public class AlumnoImporter(AlumnoService Service)
 {
     public void Import(string path)
     {
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"El archivo '{path}' no existe.");
+        }
         using var reader = new StreamReader(path);
         var config = new CsvConfiguration(CultureInfo.InvariantCulture);
         using var csv = new CsvReader(reader, config);
