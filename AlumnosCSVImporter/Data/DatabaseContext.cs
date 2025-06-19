@@ -15,6 +15,26 @@ public class DatabaseContext : IDisposable
 
     public NpgsqlConnection Connection => _connection;
 
+    public void EnsureAlumnoTable()
+    {
+        var sql = @"
+            CREATE TABLE IF NOT EXISTS ""Alumnos"" (
+                ""Id"" SERIAL PRIMARY KEY,
+                ""Apellido"" TEXT NOT NULL,
+                ""Nombre"" TEXT NOT NULL,
+                ""NroDocumento"" TEXT NOT NULL,
+                ""TipoDocumento"" INTEGER NOT NULL,
+                ""FechaNacimiento"" TEXT NOT NULL,
+                ""Sexo"" TEXT NOT NULL,
+                ""NroLegajo"" INTEGER NOT NULL,
+                ""FechaIngreso"" TIMESTAMP NOT NULL
+            );
+        ";
+
+        using var command = new NpgsqlCommand(sql, _connection);
+        command.ExecuteNonQuery();
+    }
+
     /// <summary>
     /// Ejecuta una consulta SQL (SELECT) y devuelve los resultados en forma de lista de diccionarios.
     /// </summary>
