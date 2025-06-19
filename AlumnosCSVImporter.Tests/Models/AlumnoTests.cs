@@ -14,17 +14,7 @@ public class AlumnoTests : BaseTestDB
         Service = new AlumnoService(new AlumnoRepository(Context));
     }
 
-    private static Alumno CreateEntity()=> new()
-    {
-        Apellido = "Gomez",
-        Nombre = "Juan",
-        NroDocumento = "12345678",
-        TipoDocumento = TipoDocumento.DNI,
-        FechaNacimiento = "2000-01-01",
-        Sexo = "M",
-        NroLegajo = 1001,
-        FechaIngreso = new DateTime(2020, 3, 1)
-    };
+    private static Alumno CreateEntity() => TestDataFactory.CreateAlumno();
     protected static void CheckEntity(Alumno alumno)
     {
         Assert.NotNull(alumno);

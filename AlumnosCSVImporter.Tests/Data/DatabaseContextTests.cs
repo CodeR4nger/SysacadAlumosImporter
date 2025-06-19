@@ -15,6 +15,7 @@ public class DatabaseTests : IDisposable
     public void Dispose()
     {
         _db.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     [Fact]
