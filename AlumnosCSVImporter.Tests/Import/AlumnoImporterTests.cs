@@ -38,7 +38,7 @@ public class AlumnoImporterTests : BaseTestDB
     public void CanImportCSV()
     {
         Alumno alumno = CreateCSV();
-        var importer = new AlumnoImporter(Service);
+        var importer = new AlumnoImporter([Service]);
         importer.Import(TestFilePath);
         var alumnos = Service.SearchAll();
         Assert.Single(alumnos);
